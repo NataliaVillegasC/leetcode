@@ -5,32 +5,48 @@ class Solution(object):
         :rtype: str
         """
         val = [1000, 500, 100, 50, 10, 5, 1]
-        syms = ["M", "D", "C", "L", "X","V", "I"]
+        syms = ["M", "D", "C", "L", "X","V","I"]
 
         sol = ""
         for i in range(len(val)):
             count = num // val[i]
+
             if (count <= 3) and (val[i] % 10 == 0):
+                print("num is power of 10", num)
                 sol += syms[i] * count
                 num -= val[i] * count
-                print({"count": count, "num": num, "sol": sol})
-
-            elif count == 9:
-                print(" substracting", syms[i-2], " and ", syms[i], " for 2", val[i])
+                print("num after power of 10", num, "sol is", sol)
+                
+            elif (count == 9) or (num == 9):
+                print("num starts with 9", num)
                 sol += syms[i] + syms[i-2]
-                num -= val[i] * 9
-                print({"count-2": count, "num": num, "sol": sol})
+                if num < 10:
+                    num -= 9
+                else:
+                    num -= val[i] * 9
+                print("num after start with 9", num, "sol is", sol)
 
-            elif count == 4:
-                print(" substracting", syms[i-1], " and ", syms[i], " for ", val[i])
+            elif (count == 4) or (num == 4):
+                print("num starts with 4", num)
                 sol += syms[i] + syms[i-1]
-                num -= val[i] * 4
-                print({"count-2": count, "num": num, "sol": sol})
+                print(val[i] * 4)
+                if num < 10:
+                    num -= 4
+                else:
+                    num -= val[i] * 4
+                print("num after start with 4", num, "sol is", sol)
+
+            elif count == 1:
+                print("num is", num)
+                sol += syms[i]
+                num -= val[i]
+                print("num after 1", num, "sol is", sol)
+
         return sol
 
 
 solution = Solution()
-print(solution.intToRoman(3749))
+print(solution.intToRoman(3794))
 
 
 
