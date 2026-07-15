@@ -11,36 +11,35 @@ class Solution(object):
         for i in range(len(val)):
             count = num // val[i]
 
-            if (count <= 3) and (val[i] % 10 == 0):
-                print("num is power of 10", num)
+            if val[i] != val[-1]:
+                next_count = (num - count * val[i]) // val[i+1]
+
+            if count == 0:
+                continue
+
+            if (count <= 3) and (i % 2 == 0):
                 sol += syms[i] * count
                 num -= val[i] * count
-                print("num after power of 10", num, "sol is", sol)
-                
-            elif (count == 9) or (num == 9):
-                print("num starts with 9", num)
-                sol += syms[i] + syms[i-2]
+
+            elif (count == 1) and (next_count <= 3):
+                sol += syms[i]
+                num -= val[i]
+
+            elif (count == 1) and (next_count >= 4):
+
+                sol += syms[i+1] + syms[i-1]
                 if num < 10:
                     num -= 9
                 else:
-                    num -= val[i] * 9
-                print("num after start with 9", num, "sol is", sol)
+                    num -= val[i+1] * 9
+
 
             elif (count == 4) or (num == 4):
-                print("num starts with 4", num)
                 sol += syms[i] + syms[i-1]
-                print(val[i] * 4)
                 if num < 10:
                     num -= 4
                 else:
                     num -= val[i] * 4
-                print("num after start with 4", num, "sol is", sol)
-
-            elif count == 1:
-                print("num is", num)
-                sol += syms[i]
-                num -= val[i]
-                print("num after 1", num, "sol is", sol)
 
         return sol
 
