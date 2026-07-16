@@ -3,18 +3,23 @@ class Solution:
     def encode(self, strs: [str]) -> str:
         sol = ""
         for s in strs:
-            sol += str(s)+";"
+            sol += str(len(s)) + ";" + s
         return sol
 
     def decode(self, s: str) -> [str]:
         sol = []
         temp = ""
-        for char in s:
-            if char != ";":
-                temp += char
+        i = 0
+        while i < len(s):
+            if s[i] != ";":
+                temp += s[i]
+                i += 1
             else:
-                sol.append(temp)
+                length = int(temp)
                 temp = ""
+                i += 1 # Add the space of the ;
+                sol.append(s[i:i+length])
+                i += length # Move the index to the next length of the string
         return sol
 
 
