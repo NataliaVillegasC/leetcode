@@ -17,7 +17,7 @@ class Solution:
             else:
                 length = int(temp)
                 temp = ""
-                i += 1 # Add the space of the ;
+                i += 1 # Add the space of the ";"
                 sol.append(s[i:i+length])
                 i += length # Move the index to the next length of the string
         return sol
